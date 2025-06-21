@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Student Benefit Portal - IT Study & Placement</title>
+<style>
+  /* Reset */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #1f3b73, #3c8dbc);
+    color: #222;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 15px;
+  }
+
+  header {
+    margin-bottom: 20px;
+    color: #fff;
+    text-align: center;
+  }
+
+  header h1 {
+    font-weight: 700;
+    font-size: 2.5rem;
+    letter-spacing: 1px;
+    text-shadow: 1px 1px 6px rgba(0,0,0,0.4);
+  }
+
+  /* Container common styling */
+  .container {
+    background: #fff;
+    border-radius: 12px;
+    max-width: 480px;
+    width: 100%;
+    box-shadow: 0 12px 24px rgba(0,0,0,0.2);
+    padding: 25px 30px;
+  }
+
+  h2 {
+    margin-bottom: 15px;
+    color: #1f3b73;
+    text-align: center;
+  }
+
+  /* Login Form */
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  label {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #333;
+  }
+
+  input[type="text"],
+  input[type="password"],
+  input[type="email"],
+  select,
+  textarea {
+    padding: 10px 12px;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: 1.8px solid #aaa;
+    transition: border-color 0.3s ease;
+  }
+  input[type="text"]:focus,
+  input[type="password"]:focus,
+  input[type="email"]:focus,
+  select:focus,
+  textarea:focus {
+    outline: none;
+    border-color: #3c8dbc;
+    box-shadow: 0 0 8px #3c8dbc88;
+  }
+
+  button {
+    background-color: #1f3b73;
+    color: white;
+    border: none;
+    padding: 13px;
+    border-radius: 25px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    cursor: pointer;
+    box-shadow: 0 5px 10px #175088aa;
+    transition: background-color 0.3s ease;
+  }
+  button:hover {
+    background-color: #395e9b;
+  }
+
+  .message {
+    text-align: center;
+    margin-bottom: 15px;
+    font-weight: 600;
+    color: red;
+  }
+
+  /* Internship List */
+  .internship-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 10px;
+  }
+
+  .internship-list li {
+    background: #3c8dbc11;
+    border: 1px solid #3c8dbc55;
+    border-radius: 10px;
+    padding: 15px 18px;
+    margin-bottom: 15px;
+    box-shadow: 1px 1px 5px rgba(60,141,188,0.3);
+  }
+
+  .internship-list h3 {
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: #1f3b73;
+  }
+
+  .internship-list p {
+    font-size: 0.95rem;
+    margin-bottom: 10px;
+    color: #2c3e50cc;
+  }
+
+  .internship-list button {
+    background-color: #28a745;
+    box-shadow: 0 5px 10px #1e7f35aa;
+  }
+  .internship-list button:hover {
+    background-color: #3fd05f;
+  }
+
+  /* Form for successful interview */
+  .success-form textarea {
+    resize: vertical;
+    min-height: 80px;
+  }
+
+  /* Course page */
+  .course-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .course-list li {
+    background: #1f3b73;
+    color: white;
+    border-radius: 10px;
+    padding: 12px 16px;
+    margin-bottom: 18px;
+    font-weight: 600;
+    box-shadow: 0 3px 10px #152B54cc;
+  }
+
+  .footer {
+    margin-top: auto;
+    padding: 12px 10px;
+    color: #fff;
+    font-size: 0.85rem;
+    text-align: center;
+    user-select: none;
+  }
+
+  /* Responsive */
+  @media (max-width: 520px) {
+    header h1 {
+      font-size: 1.9rem;
+    }
+    .container {
+      padding: 20px 20px;
+    }
+    button {
+      font-size: 1rem;
+      padding: 12px;
+    }
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>Student Benefit Portal</h1>
+  <p style="color:#ddd; font-size:1rem; margin-top:6px;">Study & Placement for IT Companies Worldwide</p>
+</header>
+
+<!-- Login Page -->
+<section id="loginPage" class="container">
+  <h2>Student Login</h2>
+  <div class="message" id="loginMessage"></div>
+  <form id="loginForm">
+    <label for="username">Username:</label>
+    <input type="text" id="username" placeholder="Enter username" required />
+    <label for="password">Password:</label>
+    <input type="password" id="password" placeholder="Enter password" required />
+    <button type="submit">Login</button>
+  </form>
+</section>
+
+<!-- Internship Offers Page -->
+<section id="internshipPage" class="container" style="display:none;">
+  <h2>Available Internship Offers</h2>
+  <ul class="internship-list" id="internshipList">
+    <!-- Internships will be dynamically inserted here -->
+  </ul>
+  <button id="logoutBtn1" style="background-color:#e74c3c; margin-top:10px;">Logout</button>
+</section>
+
+<!-- Interview Result Page -->
+<section id="interviewResultPage" class="container" style="display:none;">
+  <h2>Interview Result</h2>
+  <p id="resultMessage" style="font-size:1.1rem; text-align:center; margin-bottom:20px;"></p>
+  <button id="continueBtn">Continue</button>
+</section>
+
+<!-- Success Form Page (after selected) -->
+<section id="successFormPage" class="container" style="display:none;">
+  <h2>Fill Internship Details</h2>
+  <form id="detailsForm" class="success-form">
+    <label for="fullname">Full Name:</label>
+    <input type="text" id="fullname" placeholder="Enter your full name" required />
+    <label for="email">Email Address:</label>
+    <input type="email" id="email" placeholder="Enter your email" required />
+    <label for="phone">Phone Number:</label>
+    <input type="text" id="phone" placeholder="Enter your phone number" required />
+    <label for="address">Address:</label>
+    <textarea id="address" placeholder="Enter your address" required></textarea>
+    <button type="submit">Submit Details</button>
+  </form>
+  <button id="logoutBtn2" style="background-color:#e74c3c; margin-top:15px;">Logout</button>
+</section>
+
+<!-- Course Page (after failed interview) -->
+<section id="coursePage" class="container" style="display:none;">
+  <h2>Recommended Courses for You</h2>
+  <p style="margin-bottom:15px; text-align:center;">
+    Unfortunately, you were not selected in the interview.<br />
+    Here are some courses to improve your skills and try again!
+  </p>
+  <ul class="course-list" id="courseList">
+    <li>Full Stack Web Development</li>
+    <li>Data Structures & Algorithms</li>
+    <li>Cloud Computing Basics</li>
+    <li>Python for Data Science</li>
+    <li>DevOps & CI/CD Fundamentals</li>
+    <li>Machine Learning & AI Intro</li>
+    <li>Cybersecurity Essentials</li>
+    <li>Mobile App Development</li>
+  </ul>
+  <button id="backToInternshipsBtn">Back to Internships</button>
+  <button id="logoutBtn3" style="background-color:#e74c3c; margin-top:10px;">Logout</button>
+</section>
+
+<div class="footer">© 2024 Student Benefit Portal</div>
+
+<script>
+  (() => {
+    // Simulated user credentials (username: student1, password: password123)
+    const validUsers = {
+      'student1': 'password123',
+      'student2': 'mypassword',
+      'admin': 'admin123'
+    };
+
+    // Sample internship data
+    const internships = [
+      {
+        id: 1,
+        title: "Frontend Developer Intern",
+        company: "Tech Innovators Inc.",
+        location: "Remote - Global",
+        description: "Work with React, HTML, CSS and JavaScript to build amazing UI components."
+      },
+      {
+        id: 2,
+        title: "Backend Developer Intern",
+        company: "Cloud Solutions Ltd.",
+        location: "San Francisco, USA",
+        description: "Develop scalable backend APIs using Node.js and Express."
+      },
+      {
+        id: 3,
+        title: "Data Analyst Intern",
+        company: "DataWorks",
+        location: "London, UK",
+        description: "Explore and analyze datasets, create reports and visualize data trends."
+      },
+      {
+        id: 4,
+        title: "AI/ML Intern",
+        company: "FutureTech AI",
+        location: "Bangalore, India",
+        description: "Support the AI team with data preparation and model training tasks."
+      },
+    ];
+
+    // Selecting DOM elements
+    const loginPage = document.getElementById('loginPage');
+    const internshipPage = document.getElementById('internshipPage');
+    const interviewResultPage = document.getElementById('interviewResultPage');
+    const successFormPage = document.getElementById('successFormPage');
+    const coursePage = document.getElementById('coursePage');
+
+    const loginForm = document.getElementById('loginForm');
+    const loginMessage = document.getElementById('loginMessage');
+    const internshipList = document.getElementById('internshipList');
+
+    const resultMessage = document.getElementById('resultMessage');
+    const continueBtn = document.getElementById('continueBtn');
+    const detailsForm = document.getElementById('detailsForm');
+
+    const logoutBtn1 = document.getElementById('logoutBtn1');
+    const logoutBtn2 = document.getElementById('logoutBtn2');
+    const logoutBtn3 = document.getElementById('logoutBtn3');
+    const backToInternshipsBtn = document.getElementById('backToInternshipsBtn');
+
+    let loggedInUser = null;
+    let selectedInternship = null;
+    let interviewPassed = false;
+
+    // Utilities for showing/hiding pages
+    function showPage(page) {
+      // Hide all first
+      [loginPage, internshipPage, interviewResultPage, successFormPage, coursePage].forEach(p => p.style.display = 'none');
+      // Show chosen
+      page.style.display = 'block';
+    }
+
+    function logout() {
+      loggedInUser = null;
+      selectedInternship = null;
+      interviewPassed = false;
+      loginForm.reset();
+      detailsForm.reset();
+      loginMessage.textContent = '';
+      showPage(loginPage);
+    }
+
+    // Populate internship offers UI
+    function populateInternships() {
+      internshipList.innerHTML = '';
+      internships.forEach(internship => {
+        const li = document.createElement('li');
+        li.innerHTML = `
+          <h3>${internship.title}</h3>
+          <p><strong>Company:</strong> ${internship.company}</p>
+          <p><strong>Location:</strong> ${internship.location}</p>
+          <p>${internship.description}</p>
+          <button data-id="${internship.id}">Apply / Attempt Interview</button>
+        `;
+        internshipList.appendChild(li);
+      });
+    }
+
+    // Handle login
+    loginForm.addEventListener('submit', e => {
+      e.preventDefault();
+      const username = loginForm.username.value.trim();
+      const password = loginForm.password.value;
+
+      if(!validUsers[username] || validUsers[username] !== password) {
+        loginMessage.textContent = 'Invalid username or password.';
+        return;
+      }
+      loggedInUser = username;
+      loginMessage.textContent = '';
+      populateInternships();
+      showPage(internshipPage);
+    });
+
+    // Handle internship apply/interview button clicks
+    internshipList.addEventListener('click', e => {
+      if(e.target.tagName === 'BUTTON') {
+        const id = parseInt(e.target.getAttribute('data-id'));
+        selectedInternship = internships.find(i => i.id === id);
+        if (!selectedInternship) return;
+
+        // Simulate interview result randomly
+        interviewPassed = Math.random() < 0.5; // 50% chance pass or fail
+
+        if(interviewPassed) {
+          resultMessage.textContent = `Congratulations! You have been selected for the internship: ${selectedInternship.title} at ${selectedInternship.company}.`;
+        } else {
+          resultMessage.textContent = `Unfortunately, you did not pass the interview for: ${selectedInternship.title} at ${selectedInternship.company}.`;
+        }
+        showPage(interviewResultPage);
+      }
+    });
+
+    continueBtn.addEventListener('click', () => {
+      if(interviewPassed) {
+        // Show form page to fill details
+        detailsForm.reset();
+        showPage(successFormPage);
+      } else {
+        // Show course recommendations page
+        showPage(coursePage);
+      }
+    });
+
+    // Handle internship details form submission
+    detailsForm.addEventListener('submit', e => {
+      e.preventDefault();
+      alert("Thank you! Your details have been submitted for the internship.\nWe will contact you soon.");
+      logout();
+    });
+
+    // Back to internships from course page
+    backToInternshipsBtn.addEventListener('click', () => {
+      populateInternships();
+      showPage(internshipPage);
+    });
+
+    // Logout buttons
+    logoutBtn1.addEventListener('click', logout);
+    logoutBtn2.addEventListener('click', logout);
+    logoutBtn3.addEventListener('click', logout);
+
+    // Initial view
+    showPage(loginPage);
+
+  })();
+</script>
+</body>
+</html>
+
