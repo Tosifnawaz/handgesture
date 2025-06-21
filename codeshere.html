@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CodeSphere - One Page Hub</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet"/>
+  <style>
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #74ebd5, #9face6);
+      min-height: 100vh;
+      color: #333;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 30px;
+      background: #ffffffee;
+      border-radius: 15px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+    }
+
+    h1, h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #2c3e50;
+    }
+
+    .hidden { display: none; }
+
+    input, button {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+
+    button {
+      background: linear-gradient(to right, #4facfe, #00f2fe);
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+      border: none;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    .toggle-link {
+      text-align: center;
+      cursor: pointer;
+      color: #007bff;
+      margin-top: 10px;
+      font-size: 14px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 20px;
+      padding: 10px 0;
+    }
+
+    .card {
+      background: linear-gradient(135deg, #fdfbfb, #ebedee);
+      padding: 20px;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      transition: transform 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card h3 {
+      margin-bottom: 10px;
+      color: #2c3e50;
+    }
+
+    .section {
+      margin-top: 30px;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 10px;
+      border-radius: 6px;
+      overflow-x: auto;
+    }
+
+    .nav-back {
+      display: inline-block;
+      margin-top: 20px;
+      color: #333;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    .brand {
+      text-align: center;
+      font-size: 28px;
+      font-weight: bold;
+      color: #2c3e50;
+      margin-bottom: 30px;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 50px;
+      font-size: 15px;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="brand">🚀 CodeSphere - Learn to Code</div>
+
+    <!-- Login Form -->
+    <div id="loginPage">
+      <h2>Login</h2>
+      <input type="email" placeholder="Email" />
+      <input type="password" placeholder="Password" />
+      <button onclick="showDashboard()">Login</button>
+      <div class="toggle-link" onclick="toggleForms()">Don't have an account? Signup</div>
+    </div>
+
+    <!-- Signup Form -->
+    <div id="signupPage" class="hidden">
+      <h2>Signup</h2>
+      <input type="text" placeholder="Full Name" />
+      <input type="email" placeholder="Email" />
+      <input type="password" placeholder="Password" />
+      <button onclick="toggleForms()">Signup</button>
+      <div class="toggle-link" onclick="toggleForms()">Already have an account? Login</div>
+    </div>
+
+    <!-- Dashboard -->
+    <div id="dashboardPage" class="hidden">
+      <h2>Select a Programming Language</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Python</h3>
+          <button onclick="showLanguage('python')">Explore</button>
+        </div>
+        <div class="card">
+          <h3>Java</h3>
+          <button onclick="showLanguage('java')">Explore</button>
+        </div>
+        <div class="card">
+          <h3>C++</h3>
+          <button onclick="showLanguage('cpp')">Explore</button>
+        </div>
+        <div class="card">
+          <h3>JavaScript</h3>
+          <button onclick="showLanguage('js')">Explore</button>
+        </div>
+        <div class="card">
+          <h3>Solutions</h3>
+          <button onclick="showSolutions()">View</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Language Info -->
+    <div id="languagePage" class="hidden">
+      <h2 id="langTitle"></h2>
+      <div id="langContent"></div>
+      <div class="nav-back" onclick="backToDashboard()">← Back to Dashboard</div>
+    </div>
+
+    <!-- Solutions -->
+    <div id="solutionPage" class="hidden">
+      <h2>Common Coding Solutions</h2>
+      <div>
+        <h4>1. Factorial (Python)</h4>
+        <pre>def factorial(n): return 1 if n == 0 else n * factorial(n - 1)</pre>
+
+        <h4>2. Palindrome Check</h4>
+        <pre>def is_palindrome(s): return s == s[::-1]</pre>
+      </div>
+      <div class="nav-back" onclick="backToDashboard()">← Back to Dashboard</div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      Made with ❤️ by <strong>Tosif Nawaz</strong>
+    </footer>
+
+  </div>
+
+  <script>
+    function toggleForms() {
+      document.getElementById("loginPage").classList.toggle("hidden");
+      document.getElementById("signupPage").classList.toggle("hidden");
+    }
+
+    function showDashboard() {
+      document.getElementById("loginPage").classList.add("hidden");
+      document.getElementById("signupPage").classList.add("hidden");
+      document.getElementById("dashboardPage").classList.remove("hidden");
+    }
+
+    function backToDashboard() {
+      document.getElementById("languagePage").classList.add("hidden");
+      document.getElementById("solutionPage").classList.add("hidden");
+      document.getElementById("dashboardPage").classList.remove("hidden");
+    }
+
+    function showLanguage(lang) {
+      document.getElementById("dashboardPage").classList.add("hidden");
+      document.getElementById("languagePage").classList.remove("hidden");
+
+      let title = "";
+      let content = "";
+
+      if (lang === "python") {
+        title = "Python Programming 🐍";
+        content = `
+          <p><strong>What is Python?</strong><br>
+          Python is a high-level, interpreted programming language known for its simplicity.</p>
+          <p><strong>Used for:</strong> Web Dev, ML, Data Science, Automation</p>
+          <p><strong>Sample:</strong> <pre>print("Hello, Python!")</pre></p>
+          <a href="https://www.youtube.com/watch?v=rfscVS0vtbw" target="_blank">
+            <button>Watch Full Python Course</button>
+          </a>
+        `;
+      }
+
+      else if (lang === "java") {
+        title = "Java Programming ☕";
+        content = `
+          <p><strong>What is Java?</strong><br>
+          Java is an object-oriented language used for cross-platform apps.</p>
+          <p><strong>Used for:</strong> Android apps, Backend dev</p>
+          <p><strong>Sample:</strong> <pre>System.out.println("Hello, Java!");</pre></p>
+          <a href="https://www.youtube.com/watch?v=ntLJmHOJ0ME" target="_blank">
+            <button>Watch Full Java Course</button>
+          </a>
+        `;
+      }
+
+      else if (lang === "cpp") {
+        title = "C++ Programming 💻";
+        content = `
+          <p><strong>What is C++?</strong><br>
+          C++ is a powerful language for system/software development.</p>
+          <p><strong>Sample:</strong> <pre>cout << "Hello, C++!";</pre></p>
+          <a href="https://www.youtube.com/watch?v=yGB9jhsEsr8" target="_blank">
+            <button>Watch Full C++ Course</button>
+          </a>
+        `;
+      }
+
+      else if (lang === "js") {
+        title = "JavaScript ⚡";
+        content = `
+          <p><strong>What is JavaScript?</strong><br>
+          JS is the language of the web, adding interactivity to pages.</p>
+          <p><strong>Sample:</strong> <pre>alert("Hello, JS!");</pre></p>
+          <a href="https://www.youtube.com/watch?v=PkZNo7MFNFg" target="_blank">
+            <button>Watch Full JS Course</button>
+          </a>
+        `;
+      }
+
+      document.getElementById("langTitle").innerText = title;
+      document.getElementById("langContent").innerHTML = content;
+    }
+
+    function showSolutions() {
+      document.getElementById("dashboardPage").classList.add("hidden");
+      document.getElementById("solutionPage").classList.remove("hidden");
+    }
+  </script>
+
+</body>
+</html>
